@@ -1,41 +1,19 @@
-PROJECT_ROOT_PATH := $(call my-dir)
-LOCAL_PATH := $(PROJECT_ROOT_PATH)
-LOCAL_PRELINK_MODULE := false
-
-project_ldflags:= -Landroid-libs/$(TARGET_ARCH_ABI)/
-
-#------------------------------------------------------------------------------#
-# sqlite3-static-cli
+LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE            := sqlite3-static-cli
-LOCAL_MODULE_FILENAME   := sqlite3-static
-LOCAL_STATIC_LIBRARIES  := libsqlite3-a
 
-LOCAL_SRC_FILES := \
-  shell.c \
-  sqlite3.c
+LOCAL_MODULE := sqlite3_static
 
-LOCAL_C_INCLUDES += \
-  $(LOCAL_PATH)
- 
-LOCAL_EXPORT_C_INCLUDES := ./openssl/include/openssl
-LOCAL_CFLAGS            := -DSQLITE_THREADSAFE=1 -fPIE
-LOCAL_LDFLAGS           := -fPIE -pie
+LOCAL_MODULE_FILENAME :=sqlite3_static
 
-LOCAL_CFLAGS := \
-  -Wno-multichar \
-  -D_ANDROID \
-  -DLIBDIR="c" \
-  -DIN_LIBRARY \
-  -DSQLITE_HAS_CODEC=1 \
-  -DCODEC_TYPE=CODEC_TYPE_AES128 \
-  -DSQLITE_CORE \
-  -DTHREADSAFE \
-  -DSQLITE_SECURE_DELETE \
-  -DSQLITE_SOUNDEX \
-  -DSQLITE_ENABLE_COLUMN_METADATA \
-  -DSQLITE_THREADSAFE=1 \
-  -fPIE
+
+LOCAL_CFLAGS += -DSQLITE_HAS_CODEC  
+
+LOCAL_SRC_FILES := shell.c sqlite3.c
+
+
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
 
 include $(BUILD_EXECUTABLE)
