@@ -1,18 +1,8 @@
- #
-# Before building using this do:
-#	make -f Android.mk build-local-hack
-#   ndk-build
-#   ndk-build
-#	make -f Android.mk copy-libs-hack
-
 PROJECT_ROOT_PATH := $(call my-dir)
 LOCAL_PATH := $(PROJECT_ROOT_PATH)
 LOCAL_PRELINK_MODULE := false
 
 project_ldflags:= -Landroid-libs/$(TARGET_ARCH_ABI)/
-
-#------------------------------------------------------------------------------#
-# libsqlite3 
 
 #------------------------------------------------------------------------------#
 # sqlite3-static-cli
@@ -49,5 +39,3 @@ LOCAL_CFLAGS := \
   -fPIE
 
 include $(BUILD_EXECUTABLE)
-
-
